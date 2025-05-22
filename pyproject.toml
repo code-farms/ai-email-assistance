@@ -1,0 +1,17 @@
+[project]
+name = "ai-email-assistance"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "black>=25.1.0",
+    "fastapi>=0.115.12",
+    "httpx>=0.28.1",
+    "pytest>=8.3.5",
+    "python-dotenv>=1.1.0",
+    "qdrant-client>=1.14.2",
+    "ruff>=0.11.11",
+    "sqlmodel>=0.0.24",
+    "uvicorn>=0.34.2",
+]
