@@ -1,10 +1,11 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from sqlmodel import Session
+from datetime import datetime, timezone
 
 from app.db.db import engine
 from app.db.models import Email
-from datetime import datetime, timezone
+from app.core.summarizer import summarize_email
 
 router = APIRouter()
 
@@ -19,11 +20,13 @@ class PostmarkInboundPayload(BaseModel):
 @router.post("/webhook/email")
 async def receive_inbound_email(payload: PostmarkInboundPayload):
     try:
+        summary = await summarize_email(payload.TextBody)
         email = Email(
             sender=payload.From,
             recipient=payload.To,
             subject=payload.Subject,
             body=payload.TextBody,
+            summary=summary,
             received_at=datetime.now(timezone.utc),
         )
         with Session(engine) as session:

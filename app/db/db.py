@@ -15,6 +15,5 @@ def init_db():
 
         with engine.connect() as conn:
             print("✅ Database connected and tables created successfully!")
-            print(conn)
     except Exception as e:
         print(f"❌ Database initialization failed: {e}")
